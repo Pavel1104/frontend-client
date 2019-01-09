@@ -1,24 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
-import './index.css';
-import './normalize.scss';
 import App from './containers/App';
-import { store } from './store/configureStore'
 import * as serviceWorker from './serviceWorker';
-import { saveState } from './store/localStorage'
+import { loadState, saveState } from './store/localStorage'
 import throttle from 'lodash/throttle';
+import configureStore, { history } from './store/configureStore'
+
+import './index.scss';
+import './normalize.scss';
+
+const store = configureStore(loadState());
 
 // throttle ограничивает частоту вызова функции
+// сохранение store.user в localStorage без сообщений об ошибке
 store.subscribe(throttle(() => {
   saveState({
-    user: store.getState().user
+    user: Object.assign({}, store.getState().user, {error:''})
   });
 }, 1000));
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <App history={history}/>
   </Provider>,
   document.getElementById('root')
 )

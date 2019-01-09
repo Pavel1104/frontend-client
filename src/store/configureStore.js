@@ -1,8 +1,24 @@
-import { createStore, applyMiddleware } from 'redux'
-import { rootReducer } from '../reducers'
+import { applyMiddleware, compose, createStore } from 'redux'
+import { createBrowserHistory } from 'history'
+import { routerMiddleware } from 'connected-react-router'
+import createRootReducer from '../reducers'
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
-import { loadState } from './localStorage'
 
-const persistedState = loadState();
-export const store = createStore(rootReducer, persistedState, applyMiddleware(thunk, logger))
+export const history = createBrowserHistory()
+
+export default function configureStore(preloadedState) {
+  const store = createStore(
+    createRootReducer(history), // root reducer with router state
+    preloadedState,
+    compose(
+      applyMiddleware(
+        routerMiddleware(history), // for dispatching history actions
+        thunk,
+        logger,
+      ),
+    ),
+  )
+
+  return store
+}
