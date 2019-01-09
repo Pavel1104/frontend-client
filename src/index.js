@@ -16,7 +16,7 @@ const store = configureStore(loadState());
 // сохранение store.user в localStorage без сообщений об ошибке
 store.subscribe(throttle(() => {
   saveState({
-    user: Object.assign({}, store.getState().user, {error:''})
+    user: Object.assign({}, store.getState().user, {error:'', isFetching: false})
   });
 }, 1000));
 
