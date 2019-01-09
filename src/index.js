@@ -5,6 +5,15 @@ import './index.css';
 import App from './containers/App';
 import { store } from './store/configureStore'
 import * as serviceWorker from './serviceWorker';
+import { saveState } from './store/localStorage'
+import throttle from 'lodash/throttle';
+
+// throttle ограничивает частоту вызова функции
+store.subscribe(throttle(() => {
+  saveState({
+    user: store.getState().user
+  });
+}, 1000));
 
 ReactDOM.render(
   <Provider store={store}>
