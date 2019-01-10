@@ -1,23 +1,30 @@
 import React, { Component, Fragment } from 'react'
-import profile from '../../img/profile.jpeg'
+import profileImg from '../../img/profile.jpeg'
 
 export class Form extends Component {
   render() {
+    const { name, password, onInputChange, onSubmit, submitValue } = this.props
     return (
       <Fragment>
-        <form action="">
+        <form className="user-form" onSubmit={onSubmit}>
           <div className="imgcontainer">
-            <img src={profile} alt="Avatar" className="avatar" />
+            <img src={profileImg} alt="Avatar" className="avatar" />
           </div>
+          <hr />
 
           <div className="container">
-            <label htmlFor="uname"><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="uname" required />
+            <i className="icon fa fa-user"></i>
+            <input placeholder="Username"
+              name="name" type="text"
+              onChange={onInputChange} value={name}
+            />
+            <i className="icon fa fa-key"></i>
+            <input placeholder="Password"
+              name="password" type="password"
+              onChange={onInputChange} value={password}
+            />
 
-            <label htmlFor="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required />
-
-            <button type="submit">Login</button>
+            <button type="submit">{submitValue}</button>
           </div>
         </form>
       </Fragment>

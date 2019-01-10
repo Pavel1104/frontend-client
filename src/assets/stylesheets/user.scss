@@ -1,0 +1,102 @@
+$icon_size: 40px;
+
+.user {
+  :focus {outline:none}
+
+  max-width: 400px;
+  margin: 0 auto;
+  form {
+    margin: 10px;
+    padding: 15px;
+    box-sizing: border-box;
+
+    button {
+      background-color: #739c74;
+      color: white;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1.3rem;
+      height: $icon_size;
+      background-color: #ae6a6a;
+      color: #f8f8f8;
+      border-radius: 3px 3px 12px 12px;
+      -webkit-border-radius: 3px 3px 12px 12px;
+      -moz-border-radius: 3px 3px 12px 12px;
+
+      -webkit-transition: all 600ms ease;
+      transition:         all 600ms ease;
+      &:hover {
+        opacity: 0.8;
+        background-color: #607d8b;
+        font-size: 1.4rem;
+        color: #f8f8f8;
+        cursor: pointer;
+      }
+    }
+
+    input {
+      font-family: 'Open sans',sans-serif;
+      font-size: 1.5rem;
+      color: #4c4c4c;
+      border: none;
+      width: calc(100% - #{$icon_size});
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      // border: 1px solid #ccc;
+      box-sizing: border-box;
+      border-radius: 0 3px 3px 0;
+      -webkit-border-radius: 0 3px 3px 0;
+      -moz-border-radius: 0 3px 3px 0;
+      height: $icon_size;
+      vertical-align: middle;
+    }
+
+    .icon {
+      margin: 0;
+      padding: 0;
+      width: $icon_size;
+      height: $icon_size;
+      line-height: $icon_size;
+      border: none;
+      border-radius: 3px 0 0 3px;
+      -webkit-border-radius: 3px 0 0 3px;
+      -moz-border-radius: 3px 0 0 3px;
+      vertical-align: middle;
+      text-align: center;
+      display: inline-block;
+      background-color: #F4F4F4;
+      color: #625864;
+      font-size: 1rem;
+    }
+  }
+
+  .imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+  }
+
+  img.avatar {
+    width: 40%;
+    border-radius: 50%;
+  }
+  a {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+  }
+  a:hover {
+    color: rgba(255, 152, 0, 0.79);
+    text-decoration: underline;
+  }
+
+  .link{
+    text-align: center;
+    font-size: 1rem;
+    hr {
+      opacity:0.3;
+      margin: 0 30px;
+    }
+  }
+}

@@ -7,22 +7,28 @@ import { loadState, saveState } from './store/localStorage'
 import throttle from 'lodash/throttle';
 import configureStore, { history } from './store/configureStore'
 
-import './index.scss';
-import './normalize.scss';
+import './assets/stylesheets/normalize.scss';
+import './assets/stylesheets/index.scss';
+import './assets/stylesheets/user.scss';
+
 
 const store = configureStore(loadState());
 
 // throttle ограничивает частоту вызова функции
-// сохранение store.user в localStorage без сообщений об ошибке
+// сохранение store.user в localStorage without password
 store.subscribe(throttle(() => {
-  saveState({
-    user: Object.assign({}, store.getState().user, {error:'', isFetching: false})
-  });
+  if (store.getState().user.success) {
+    saveState({
+      user: Object.assign({}, store.getState().user, {password: ''})
+    });
+  }
 }, 1000));
 
 ReactDOM.render(
   <Provider store={store}>
     <App history={history}/>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossOrigin="anonymous" />
   </Provider>,
   document.getElementById('root')
 )
