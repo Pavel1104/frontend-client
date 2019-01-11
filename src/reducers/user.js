@@ -1,6 +1,6 @@
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL,
   REGISTER_REQUEST, REGISTER_SUCCESS,
-  REGISTER_FAIL, CHANGE_USER_DATA } from '../actions/UserActions'
+  REGISTER_FAIL } from '../actions/UserActions'
 
 
 const initialState = {
@@ -27,13 +27,10 @@ export function userReducer(state = initialState, action) {
       return { ...state, isFetching: true, error: '' }
 
     case REGISTER_SUCCESS:
-      return { ...state, isFetching: false, success: action.payload.success, token: action.payload.token }
+      return { ...state, isFetching: false, success: action.payload.success, token: action.payload.token, name: action.payload.username }
 
     case REGISTER_FAIL:
       return { ...state, isFetching: false, error: action.payload.message }
-
-    case CHANGE_USER_DATA:
-      return { ...state, [action.payload.key]: action.payload.value}
 
     default:
       return state

@@ -1,25 +1,19 @@
 import React, { Component, Fragment } from 'react'
 import { Error } from './_error'
-import { Form } from './_form'
+import RegisterForm from './_registerForm'
 import { Link } from 'react-router-dom'
 
 export class Register extends Component {
   renderTemplate = () => {
-    const { error, isFetching, name, password, onInputChange, onSubmit } = this.props
+    const { error, isFetching, onSubmit } = this.props
 
     if (isFetching) {
-      return <p>Загружаю...</p>
+      return <div className="loading"><p>Загружаю...</p></div>
     } else {
       return (
         <Fragment>
           {error && <Error error={error}/>}
-          <Form
-            name={name}
-            password={password}
-            onInputChange={onInputChange}
-            onSubmit={onSubmit}
-            submitValue={"Sing Up"}
-          />
+          <RegisterForm onSubmit={onSubmit} />
           <nav className="link">
           <hr />
           <Link to="/login">Sign In</Link>

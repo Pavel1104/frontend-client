@@ -15,11 +15,11 @@ import './assets/stylesheets/user.scss';
 const store = configureStore(loadState());
 
 // throttle ограничивает частоту вызова функции
-// сохранение store.user в localStorage without password
+// сохранение store.user в localStorage without password and error
 store.subscribe(throttle(() => {
   if (store.getState().user.success) {
     saveState({
-      user: Object.assign({}, store.getState().user, {password: ''})
+      user: Object.assign({}, store.getState().user, {error: '', password: ''})
     });
   }
 }, 1000));

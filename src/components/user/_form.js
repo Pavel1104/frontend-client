@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import profileImg from '../../img/profile.jpeg'
+import profileImg from '../../assets/img/profile.jpeg'
 
 export class Form extends Component {
   render() {

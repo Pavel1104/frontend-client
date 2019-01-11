@@ -27,12 +27,16 @@ $icon_size: 40px;
 
       -webkit-transition: all 600ms ease;
       transition:         all 600ms ease;
-      &:hover {
+      &:hover:not(:disabled) {
         opacity: 0.8;
         background-color: #607d8b;
         font-size: 1.4rem;
         color: #f8f8f8;
         cursor: pointer;
+      }
+      &:disabled {
+        background-color: #c7d0d5;
+        color: #333333;
       }
     }
 
@@ -43,9 +47,8 @@ $icon_size: 40px;
       border: none;
       width: calc(100% - #{$icon_size});
       padding: 12px 20px;
-      margin: 8px 0;
+      margin: 14px 0;
       display: inline-block;
-      // border: 1px solid #ccc;
       box-sizing: border-box;
       border-radius: 0 3px 3px 0;
       -webkit-border-radius: 0 3px 3px 0;
@@ -82,6 +85,7 @@ $icon_size: 40px;
     width: 40%;
     border-radius: 50%;
   }
+
   a {
     text-decoration: none;
     color: rgb(255, 255, 255);
@@ -98,5 +102,33 @@ $icon_size: 40px;
       opacity:0.3;
       margin: 0 30px;
     }
+  }
+
+  .error {
+    position: absolute;
+    top: -1.7rem;
+    left: 0;
+    padding: .5em 1em .4em;
+    background-color: #f66;
+    border: 1px solid #f00;
+    border-radius: 5px;
+    color: #fff;
+  }
+  .error::after,
+  .error::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 15px;
+    border: solid transparent;
+  }
+  .error::after {
+    margin-left: 1px;
+    border-top-color: #f66;
+    border-width: 7px;
+  }
+  .error::before {
+    border-top-color: #f00;
+    border-width: 8px;
   }
 }
