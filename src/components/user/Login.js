@@ -1,33 +1,28 @@
 import React, { Component, Fragment } from 'react'
 import { Error } from './_error'
-import { Form } from './_form'
-
-import './user.scss'
+import LoginForm from './_loginForm'
+import { Link } from 'react-router-dom'
 
 export class Login extends Component {
   renderTemplate = () => {
-    const { name, error, isFetching, handleLoginAction } = this.props
-
-    if (error) {
-      return <Error error={error}/>
-    }
+    const { error, isFetching, onSubmit } = this.props
 
     if (isFetching) {
-      return <p>Загружаю...</p>
-    }
-
-    if (name) {
-      return <p>Привет, {name}!</p>
+      return <div className="loading"><p>Загружаю...</p></div>
     } else {
       return (
         <Fragment>
-          login
-          <Form handleLoginAction={handleLoginAction}/>
+          {error && <Error error={error}/>}
+          <LoginForm onSubmit={onSubmit} />
+          <nav className="link">
+            <hr />
+            <Link to="/register">Sign Up</Link>
+          </nav>
         </Fragment>
       )
     }
   }
   render() {
-    return <div className="ib user">{this.renderTemplate()}</div>
+    return <div className="user">{this.renderTemplate()}</div>
   }
 }

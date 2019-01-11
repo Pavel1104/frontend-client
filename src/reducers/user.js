@@ -18,7 +18,7 @@ export function userReducer(state = initialState, action) {
       return { ...state, isFetching: true, error: '' }
 
     case LOGIN_SUCCESS:
-      return { ...state, isFetching: false, name: action.payload }
+      return { ...state, isFetching: false, success: action.payload.success, token: action.payload.token, name: action.payload.username }
 
     case LOGIN_FAIL:
       return { ...state, isFetching: false, error: action.payload.message }

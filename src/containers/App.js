@@ -12,6 +12,10 @@ class App extends Component {
     this.props.handleRegister(values.username, values.password);
   };
 
+  handleSubmitLoginForm = (values) => {
+    this.props.handleLogin(values.username, values.password);
+  };
+
   render() {
     const { history, user } = this.props;
 
@@ -25,7 +29,7 @@ class App extends Component {
               <li><Link to="/register">Register</Link></li>
             </ul>
           </nav>
-          <Route path="/register" exact component={() =>
+          <Route path="/register" component={() =>
             <Register
               onSubmit={this.handleSubmitRegisterForm}
 
@@ -34,11 +38,12 @@ class App extends Component {
             />
           }/>
 
-          <Route path="/" exact component={() =>
-            <Login name={user.name}
+          <Route path="/login" component={() =>
+            <Login
+              onSubmit={this.handleSubmitLoginForm}
+
               isFetching={user.isFetching}
               error={user.error}
-              handleLogin={handleLogin}
             />
           }/>
         </Fragment>
@@ -57,7 +62,7 @@ const mapStateToProps = store => {
 const mapDispatchToProps = dispatch => {
   return {
     handleRegister: (name, password) => dispatch(handleRegister(name, password)),
-    handleLogin: () => dispatch(handleLogin()),
+    handleLogin: (name, password) => dispatch(handleLogin(name, password)),
   }
 }
 

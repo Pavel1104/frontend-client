@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { validateRegisterForm as validate } from './formValidate';
+import { validateLoginForm as validate } from './formValidate';
 
 import profileImg from '../../assets/img/profile.jpeg'
 
-class RegisterForm extends Component {
+class LoginForm extends Component {
   renderField = ({ input, placeholder, type, meta: { touched, error }}) => (
     <Fragment>
       <input {...input} placeholder={placeholder} type={type} />
@@ -33,11 +33,6 @@ class RegisterForm extends Component {
             <Field name="password" component={this.renderField}  placeholder="Password" type="password"/>
           </div>
 
-          <div className="relative">
-            <i className="icon fa fa-key"></i>
-            <Field name="confirm_password" component={this.renderField}  placeholder="Confirm password" type="password"/>
-          </div>
-
           <button type="submit" disabled={invalid}>Sign Up</button>
         </div>
       </form>
@@ -45,9 +40,9 @@ class RegisterForm extends Component {
   }
 }
 
-RegisterForm = reduxForm({
-  form: 'registerForm',
+LoginForm = reduxForm({
+  form: 'loginForm',
   validate,
-})(RegisterForm);
+})(LoginForm);
 
-export default RegisterForm;
+export default LoginForm;

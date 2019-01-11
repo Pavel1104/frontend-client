@@ -10,29 +10,6 @@ export const REGISTER_REQUEST = 'REGISTER_REQUEST'
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 export const REGISTER_FAIL = 'REGISTER_FAIL'
 
-export function handleLogin() {
-  return function(dispatch) {
-    dispatch({
-      type: LOGIN_REQUEST,
-    })
-
-    fetch('http://smktesting.herokuapp.com/api/products/')
-    .then(r => {
-      if (r.ok) {
-        dispatch({
-          type: LOGIN_SUCCESS,
-          payload: 'success',
-        })
-      } else {
-        dispatch({
-          type: LOGIN_FAIL,
-          error: true,
-          payload: new Error('Ошибка авторизации'),
-        })
-      }
-    })
-  }
-}
 
 // const apiUrl = 'http://smktesting.herokuapp.com/api';
 const apiUrl = 'http://demo6925046.mockable.io';
@@ -55,6 +32,43 @@ export function handleRegister( username, password ) {
     })
     .catch(function (err) {
       dispatch({
+        type: REGISTER_FAIL,
+        error: true,
+        payload: new Error('Ошибка регистрации'),
+      })
+    });
+  }
+}
+
+const registerSuccess = (data, username) => {
+  return {
+    type: REGISTER_SUCCESS,
+    payload: {
+      success: data.success,
+      token: data.token,
+      username: username,
+    }
+  }
+};
+
+export function handleLogin( username, password ) {
+  return function(dispatch) {
+    dispatch({
+      type: LOGIN_REQUEST,
+    })
+
+    axios.post(`${apiUrl}/login`,
+      {username: username, password: password}
+    )
+    .then((response) => {
+      dispatch(loginSuccess(response.data, username));
+      dispatch(reset('loginForm'));
+    })
+    .then( () => {
+      history.push("/")
+    })
+    .catch(function (err) {
+      dispatch({
         type: LOGIN_FAIL,
         error: true,
         payload: new Error('Ошибка авторизации'),
@@ -63,9 +77,9 @@ export function handleRegister( username, password ) {
   }
 }
 
-export const registerSuccess = (data, username) => {
+const loginSuccess = (data, username) => {
   return {
-    type: REGISTER_SUCCESS,
+    type: LOGIN_SUCCESS,
     payload: {
       success: data.success,
       token: data.token,
