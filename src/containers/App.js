@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
+import Welcome from './Welcome'
 import { Login } from '../components/user/Login'
 import { Register } from '../components/user/Register'
 import { handleLogin, handleRegister } from '../actions/UserActions'
@@ -29,6 +30,11 @@ class App extends Component {
               <li><Link to="/register">Register</Link></li>
             </ul>
           </nav>
+
+          <Route path="/" exact component={() =>
+            <Welcome onSubmit={this.handleSubmitLoginForm}/>
+          }/>
+
           <Route path="/register" component={() =>
             <Register
               onSubmit={this.handleSubmitRegisterForm}
