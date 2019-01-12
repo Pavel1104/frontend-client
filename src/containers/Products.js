@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import { loadProducts } from '../actions/ProductsActions'
 import { Product } from '../components/product/Product'
+import Reviews from './Reviews'
 
 class Products extends Component {
   componentDidMount() {
@@ -25,6 +26,7 @@ class Products extends Component {
         return (
           <Fragment>
             <Product product={product} />
+            <Reviews productId={id}/>
           </Fragment>
         )
       }

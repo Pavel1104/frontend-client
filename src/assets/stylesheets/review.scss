@@ -1,0 +1,53 @@
+.review {
+  background-color: #f0ffffcc;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 10px 0 0;
+  color: black;
+
+  .rating {
+    text-align: left;
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    display: inline-block;
+    padding: 0 0 0 5px;
+
+    & > .star {
+      display: inline-block;
+      position: relative;
+      font-size: 1.5rem;
+
+      &.green { color: forestgreen; }
+      &.yellow { color: yellow; }
+      &.red { color: orangered; }
+
+      &.solid:before,
+      &.editable:hover:before,
+      &.editable:hover ~ span:before {
+        content: "\2605";
+        position: absolute;
+      }
+    }
+  }
+
+  .text {
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+
+  .footer {
+    width: 100%;
+    padding: 5px 10px;
+    box-sizing: border-box;
+
+    .author {
+      display: inline-block;
+    }
+
+    .date {
+      display: inline-block;
+      margin-left: 5px;
+    }
+  }
+}
