@@ -1,0 +1,30 @@
+.product {
+  background-color: #f0ffff77;
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 10px;
+
+  h1 {
+    color: black;
+    margin: 0 0 5px 5px;
+  }
+
+  .preview {
+    padding: 0 1% 0;
+    display: inline-block;
+    vertical-align: top;
+    opacity: 0.8;
+    border-radius: 50%;
+    width: 30%;
+    box-sizing: border-box;
+  }
+
+  .description {
+    padding: 0 2%;
+    display: inline-block;
+    vertical-align: top;
+    width: 70%;
+    box-sizing: border-box;
+    text-align: justify;
+  }
+}

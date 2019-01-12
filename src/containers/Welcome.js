@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
 import { Login } from '../components/user/Login'
 import { handleLogout } from '../actions/UserActions'
+import  Products from './Products'
 
 class Welcome extends Component {
   handleLogout = () => {
@@ -12,10 +13,14 @@ class Welcome extends Component {
     const { user, onSubmit } = this.props;
 
     if (user.success) {
-      return <Fragment>
-        <p>Hello, {user.name}</p>
-        <p onClick={this.handleLogout}>Logout</p>
-      </Fragment>
+      return (
+        <Fragment>
+          <p>Hello, {user.name}</p>
+          <p onClick={this.handleLogout}>Logout</p>
+
+          <Products />
+        </Fragment>
+      )
     }
 
     return (
@@ -24,7 +29,7 @@ class Welcome extends Component {
         isFetching={user.isFetching}
         error={user.error}
       />
-    );
+    )
   }
 }
 

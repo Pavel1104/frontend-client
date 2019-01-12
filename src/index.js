@@ -10,7 +10,9 @@ import configureStore, { history } from './store/configureStore'
 import './assets/stylesheets/normalize.scss';
 import './assets/stylesheets/index.scss';
 import './assets/stylesheets/user.scss';
+import './assets/stylesheets/product.scss';
 
+export const baseUrl = 'http://smktesting.herokuapp.com'
 
 const store = configureStore(loadState());
 

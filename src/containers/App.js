@@ -1,11 +1,14 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { ConnectedRouter } from 'connected-react-router'
+import { Route, Link } from 'react-router-dom'
+
 import Welcome from './Welcome'
 import { Login } from '../components/user/Login'
 import { Register } from '../components/user/Register'
 import { handleLogin, handleRegister } from '../actions/UserActions'
-import { ConnectedRouter } from 'connected-react-router'
-import { Route, Link } from 'react-router-dom'
+
+import Products from './Products'
 
 class App extends Component {
 
@@ -28,6 +31,7 @@ class App extends Component {
               <li><Link to="/">Home</Link></li>
               <li><Link to="/login">Login</Link></li>
               <li><Link to="/register">Register</Link></li>
+              <li><Link to="/products">Products</Link></li>
             </ul>
           </nav>
 
@@ -38,7 +42,6 @@ class App extends Component {
           <Route path="/register" component={() =>
             <Register
               onSubmit={this.handleSubmitRegisterForm}
-
               isFetching={user.isFetching}
               error={user.error}
             />
@@ -47,10 +50,13 @@ class App extends Component {
           <Route path="/login" component={() =>
             <Login
               onSubmit={this.handleSubmitLoginForm}
-
               isFetching={user.isFetching}
               error={user.error}
             />
+          }/>
+
+          <Route path="/products" component={() =>
+            <Products />
           }/>
         </Fragment>
       </ConnectedRouter>
