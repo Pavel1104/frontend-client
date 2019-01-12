@@ -58,6 +58,10 @@ class App extends Component {
           <Route path="/products" component={() =>
             <Products />
           }/>
+
+          <Route path="/product/:id" component={(props) =>
+            <Products match={props.match.params}/>
+          }/>
         </Fragment>
       </ConnectedRouter>
     );

@@ -4,15 +4,36 @@ import { connect } from 'react-redux'
 import { loadProducts } from '../actions/ProductsActions'
 import { Product } from '../components/product/Product'
 
-
 class Products extends Component {
   componentDidMount() {
     const { loadProducts, user } = this.props;
     loadProducts(user.token);
   }
 
+  findById = (arr, id) => {
+    return arr.find(x => x.id === id);
+  };
+
   render() {
     const products = this.props.products.products;
+
+    if ( this.props.match ) {
+      const { id }  = this.props.match
+      let product = this.findById(this.props.products.products, parseInt(id));
+
+      if (product !== undefined) {
+        return (
+          <Fragment>
+            <Product product={product} />
+          </Fragment>
+        )
+      }
+
+      return (
+        <div className="error">Product isn't found</div>
+      )
+    }
+
     return (
       <Fragment>
         {products.map((product) => <Product key={product.id} product={product} />)}

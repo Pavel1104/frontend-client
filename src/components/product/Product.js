@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import { Link } from 'react-router-dom'
 import { baseUrl } from '../../index'
 
 export class Product extends Component {
@@ -8,7 +9,9 @@ export class Product extends Component {
     return (
       <Fragment>
         <div className="product">
-          <h1>{title}</h1>
+          <Link to={`/product/${id}`}>
+            <h1>{title}</h1>
+          </Link>
           <img className="preview" src={`${baseUrl}/static/${img}`}
             alt={title}
           />
