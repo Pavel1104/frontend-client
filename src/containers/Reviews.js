@@ -3,8 +3,16 @@ import { connect } from 'react-redux'
 
 import { loadReviews } from '../actions/ReviewsActions'
 import { Review } from '../components/review/Review'
+import ReviewForm from '../components/review/_reviewForm'
+import { handleAddReview } from '../actions/ReviewsActions'
 
 class Reviews extends Component {
+
+  handleSubmitReviewForm = (values) => {
+    const { user, productId } = this.props;
+    this.props.handleAddReview(user.token, productId, values.rate, values.text);
+  };
+
   componentDidMount() {
     const { loadReviews, user, productId } = this.props;
     loadReviews(user.token, productId);
@@ -16,9 +24,13 @@ class Reviews extends Component {
 
   render() {
     const reviews = this.props.reviews.reviews;
+    const { user } = this.props;
 
     return (
       <Fragment>
+        {user.token &&
+          <ReviewForm onSubmit={this.handleSubmitReviewForm}/>
+        }
         {reviews.map((review) => <Review key={review.id} review={review} />)}
       </Fragment>
     )
@@ -36,6 +48,7 @@ const mapStateToProps = store => {
 const mapDispatchToProps = dispatch => {
   return {
     loadReviews: (token, productId) => dispatch(loadReviews(token, productId)),
+    handleAddReview: (token, productId, rate, text) => dispatch(handleAddReview(token, productId, rate, text)),
   }
 }
 

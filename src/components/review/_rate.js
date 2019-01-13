@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 
 export class Rate extends Component {
   render() {
-    const { rate } = this.props;
+    const { editable, rate, setRate } = this.props;
 
     let stars = [];
     let color;
@@ -21,9 +21,13 @@ export class Rate extends Component {
     }
 
     for (let item = 5; item > 0; item-- ) {
-      stars.push(<span className={`star ${color} ${item <= rate ? 'solid' : 'empty'}`}
-        rate={item} key={item}>{String.fromCharCode(9734)}
-      </span>);
+      stars.push(
+        <span data-rate={item} key={item} onClick={setRate}
+        className={`star ${editable} ${color} ${item <= rate ? 'solid' : 'empty'}`}
+        >
+          {String.fromCharCode(9734)}
+        </span>
+      )
     }
 
     return (

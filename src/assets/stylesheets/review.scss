@@ -16,10 +16,26 @@
       display: inline-block;
       position: relative;
       font-size: 1.5rem;
+      -webkit-transition: all 600ms ease;
+      transition:         all 600ms ease;
 
       &.green { color: forestgreen; }
       &.yellow { color: yellow; }
       &.red { color: orangered; }
+
+      &.editable[data-rate="5"]:hover,
+      &.editable[data-rate="4"]:hover,
+      &.editable:hover[data-rate="5"] ~ span,
+      &.editable:hover[data-rate="4"] ~ span,
+      { color: forestgreen; }
+
+      &.editable[data-rate="3"]:hover,
+      &.editable:hover[data-rate="3"] ~ span,
+      { color: yellow; }
+
+      &.editable {
+        cursor: pointer;
+      }
 
       &.solid:before,
       &.editable:hover:before,
@@ -48,6 +64,91 @@
     .date {
       display: inline-block;
       margin-left: 5px;
+    }
+  }
+
+  .container {
+    text-align: center;
+    position: relative;
+    padding: 30px 10px 10px;
+    position: relative;
+
+    .rating {
+      position: absolute;
+      top: 0.1rem;
+      right: 0.3rem;
+      width: 110px;
+    }
+  }
+  .hidden {display: none};
+  textarea.text {
+    resize: vertical;
+    max-height: 300px;
+    min-height: 70px;
+    height: 70px;
+
+    &:focus {outline: none}
+  }
+
+  button {
+    background-color: #739c74;
+    color: white;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.3rem;
+    height: 40px;
+    background-color: #6bae6a;
+    color: #000000;
+    border-radius: 3px 3px 12px 12px;
+    -webkit-border-radius: 3px 3px 12px 12px;
+    -moz-border-radius: 3px 3px 12px 12px;
+
+    -webkit-transition: all 600ms ease;
+    transition:         all 600ms ease;
+
+    &:focus {outline: none}
+
+    &:hover:not(:disabled) {
+      opacity: 0.8;
+      background-color: #08c364;
+      color: #000000;
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+    &:disabled {
+      background-color: #969696;
+      color: #ffffff;
+    }
+  }
+
+  .error {
+    position: absolute;
+    top: -0.5rem;
+    left: 0.8rem;
+    padding: .5em 1em .4em;
+    background-color: #f66;
+    border: 1px solid #f00;
+    border-radius: 5px;
+    color: #fff;
+
+    &::after,
+    &::before {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 15px;
+      border: solid transparent;
+    }
+    &::after {
+      margin-left: 1px;
+      border-top-color: #f66;
+      border-width: 7px;
+    }
+    &::before {
+      border-top-color: #f00;
+      border-width: 8px;
     }
   }
 }
