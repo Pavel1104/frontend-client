@@ -1,27 +1,33 @@
-import React, { Component, Fragment } from 'react'
-import { connect } from 'react-redux'
-import { ConnectedRouter } from 'connected-react-router'
-import { Route, Link } from 'react-router-dom'
+import React, {Component, Fragment} from 'react'
+import {connect} from 'react-redux'
+import {ConnectedRouter} from 'connected-react-router'
+import {Route, Link} from 'react-router-dom'
 
 import Welcome from './Welcome'
-import { Login } from '../components/user/Login'
-import { Register } from '../components/user/Register'
-import { handleLogin, handleRegister } from '../actions/UserActions'
+
+import {Login} from '../components/user/Login'
+import {Register} from '../components/user/Register'
+import {restoreUserSession, handleLogin, handleRegister} from '../actions/UserActions'
 
 import Products from './Products'
+import Product from './Product'
 
 class App extends Component {
 
+  componentDidMount() {
+    this.props.restoreUserSession()
+  }
+
   handleSubmitRegisterForm = (values) => {
-    this.props.handleRegister(values.username, values.password);
-  };
+    this.props.handleRegister(values.username, values.password)
+  }
 
   handleSubmitLoginForm = (values) => {
-    this.props.handleLogin(values.username, values.password);
-  };
+    this.props.handleLogin(values.username, values.password)
+  }
 
   render() {
-    const { history, user } = this.props;
+    const {history, user} = this.props
 
     return (
       <ConnectedRouter history={history}>
@@ -51,20 +57,20 @@ class App extends Component {
             <Login
               onSubmit={this.handleSubmitLoginForm}
               isFetching={user.isFetching}
-              error={user.error}
+              errorMsg={false}
             />
           }/>
 
           <Route path="/products" component={() =>
-            <Products />
+            <Products/>
           }/>
 
-          <Route path="/product/:id" component={(props) =>
-            <Products match={props.match.params}/>
+          <Route path="/product/:productId" component={(props) =>
+            <Product match={props.match.params}/>
           }/>
         </Fragment>
       </ConnectedRouter>
-    );
+    )
   }
 }
 
@@ -77,6 +83,7 @@ const mapStateToProps = store => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    restoreUserSession: () => dispatch(restoreUserSession()),
     handleRegister: (name, password) => dispatch(handleRegister(name, password)),
     handleLogin: (name, password) => dispatch(handleLogin(name, password)),
   }

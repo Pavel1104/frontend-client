@@ -1,11 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'
+import {Provider} from 'react-redux'
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
-import { loadState, saveState } from './store/localStorage'
-import throttle from 'lodash/throttle';
-import configureStore, { history } from './store/configureStore'
+import {store, history} from './store/configureStore'
 
 import './assets/stylesheets/normalize.scss';
 import './assets/stylesheets/index.scss';
@@ -13,19 +11,7 @@ import './assets/stylesheets/user.scss';
 import './assets/stylesheets/product.scss';
 import './assets/stylesheets/review.scss';
 
-export const baseUrl = 'http://smktesting.herokuapp.com'
-
-const store = configureStore(loadState());
-
-// throttle ограничивает частоту вызова функции
-// сохранение store.user в localStorage without password and error
-store.subscribe(throttle(() => {
-  if (store.getState().user.success) {
-    saveState({
-      user: Object.assign({}, store.getState().user, {error: '', password: ''})
-    });
-  }
-}, 1000));
+export const BASE_URL = 'http://smktesting.herokuapp.com'
 
 ReactDOM.render(
   <Provider store={store}>

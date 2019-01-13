@@ -1,20 +1,25 @@
-const STATE = 'reduxState'
+const STATE = 'userSession'
 
-export const loadState = () => {
+let initialSession = {
+  username: '',
+  token: '',
+}
+
+export const loadUserSession = () => {
   try {
     const serializedState = localStorage.getItem(STATE);
     if (serializedState === null) {
-      return undefined;
+      return initialSession;
     }
     return JSON.parse(serializedState);
   } catch (err) {
-    return undefined;
+    return initialSession;
   }
 };
 
-export const saveState = (state) => {
+export const saveUserSession = (username, token) => {
   try {
-    const serializedState = JSON.stringify(state);
+    const serializedState = JSON.stringify({username, token});
     localStorage.setItem(STATE, serializedState);
   } catch {
     // ignore write errors

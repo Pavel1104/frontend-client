@@ -1,6 +1,10 @@
-import axios from "axios";
-import { history } from '../store/configureStore'
-import {reset} from 'redux-form'
+import api from '../utils/apiConfig'
+import {history} from '../store/configureStore'
+import {saveUserSession, loadUserSession} from '../store/localStorage'
+
+export const RESTORE_USER_SESSION = 'RESTORE_USER_SESSION'
+export const RESTORE_USER_SESSION_SUCCESS = 'RESTORE_USER_SESSION_SUCCESS'
+export const RESTORE_USER_SESSION_FAIL = 'RESTORE_USER_SESSION_FAIL'
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
@@ -12,22 +16,52 @@ export const REGISTER_REQUEST = 'REGISTER_REQUEST'
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 export const REGISTER_FAIL = 'REGISTER_FAIL'
 
+export function restoreUserSession() {
+  return function(dispatch) {
+    dispatch({
+      type: RESTORE_USER_SESSION,
+    })
 
-// const apiUrl = 'http://smktesting.herokuapp.com/api';
-const apiUrl = 'http://demo6925046.mockable.io';
+    Promise.resolve()
+    .then(() => {
+      let {username, token} = loadUserSession()
+      if(username && token) {
+        return {username, token}
+      }
+      // eslint-disable-next-line
+      throw 'empty username or token'
+    })
+    .then((data) => {
+      dispatch(restoreSuccess(data.username, data.token))
+    })
+    .catch(() => {
+      dispatch({
+        type: RESTORE_USER_SESSION_FAIL,
+      })
+    })
+  }
+}
 
-export function handleRegister( username, password ) {
+const restoreSuccess = (username, token) => {
+  return {
+    type: RESTORE_USER_SESSION_SUCCESS,
+    payload: {
+      success: true,
+      username,
+      token,
+    }
+  }
+}
+
+export function handleRegister(username, password) {
   return function(dispatch) {
     dispatch({
       type: REGISTER_REQUEST,
     })
 
-    axios.post(`${apiUrl}/register`,
-      {username: username, password: password}
-    )
+    api.post('/register/', {username, password})
     .then((response) => {
-      dispatch(registerSuccess(response.data, username));
-      dispatch(reset('registerForm'));
+      dispatch(registerSuccess(response.data, username))
     })
     .then( () => {
       history.push("/")
@@ -36,9 +70,9 @@ export function handleRegister( username, password ) {
       dispatch({
         type: REGISTER_FAIL,
         error: true,
-        payload: new Error('Ошибка регистрации'),
+        payload: new Error(err.response.statusText),
       })
-    });
+    })
   }
 }
 
@@ -51,20 +85,18 @@ const registerSuccess = (data, username) => {
       username: username,
     }
   }
-};
+}
 
-export function handleLogin( username, password ) {
+export function handleLogin(username, password) {
   return function(dispatch) {
     dispatch({
       type: LOGIN_REQUEST,
     })
 
-    axios.post(`${apiUrl}/login`,
-      {username: username, password: password}
-    )
+    api.post('login/', {username, password})
     .then((response) => {
-      dispatch(loginSuccess(response.data, username));
-      dispatch(reset('loginForm'));
+      dispatch(loginSuccess(response.data, username))
+      saveUserSession(username, response.data.token)
     })
     .then( () => {
       history.push("/")
@@ -72,10 +104,9 @@ export function handleLogin( username, password ) {
     .catch(function (err) {
       dispatch({
         type: LOGIN_FAIL,
-        error: true,
-        payload: new Error('Ошибка авторизации'),
+        payload: new Error(err.response.statusText),
       })
-    });
+    })
   }
 }
 
@@ -88,7 +119,7 @@ const loginSuccess = (data, username) => {
       username: username,
     }
   }
-};
+}
 
 export function handleLogout() {
   return function(dispatch) {

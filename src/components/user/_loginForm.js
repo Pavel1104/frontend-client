@@ -11,7 +11,8 @@ class LoginForm extends Component {
       {touched && (error && <span className="error">{error}</span>)}
     </Fragment>
   );
-  render(){
+
+  render() {
     const {handleSubmit, invalid} = this.props;
 
     return (
