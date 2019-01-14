@@ -65,10 +65,7 @@ export const handleRegister = (username, password) => {
       }
 
       if(!response.data.success) {
-        dispatch({
-          type: REGISTER_FAIL,
-          payload: new Error(response.data.message),
-        })
+        throw new Error(response.data.message)
       }
     })
     .then(() => {
@@ -108,10 +105,7 @@ export const handleLogin = (username, password) => {
       }
 
       if(!response.data.success) {
-        dispatch({
-          type: LOGIN_FAIL,
-          payload: new Error(response.data.message),
-        })
+        throw new Error(response.data.message)
       }
     })
     .then(() => {

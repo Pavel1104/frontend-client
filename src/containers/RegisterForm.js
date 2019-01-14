@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import {Field, reduxForm} from 'redux-form'
 import {Link} from 'react-router-dom'
-import {validateRegisterForm as validate} from '../utils/userFormValidate'
+import {validateRegisterForm as validate} from '../utils/formsValidate'
 import {connect} from 'react-redux'
 import {handleRegister} from '../actions/UserActions'
 
