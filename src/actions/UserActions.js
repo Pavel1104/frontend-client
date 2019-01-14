@@ -74,7 +74,7 @@ export const handleRegister = (username, password) => {
     .catch(err => {
       dispatch({
         type: REGISTER_FAIL,
-        payload: new Error(prepeareErrorMsg(err)),
+        payload: new Error(err.message),
       })
     })
   }
@@ -114,7 +114,7 @@ export const handleLogin = (username, password) => {
     .catch(err => {
       dispatch({
         type: LOGIN_FAIL,
-        payload: new Error(prepeareErrorMsg(err)),
+        payload: new Error(err.message),
       })
     })
   }
@@ -138,16 +138,4 @@ export const handleLogout = () => {
       type: LOGOUT,
     })
   }
-}
-
-const prepeareErrorMsg = err => {
-  if(err.message) {
-    return err.message
-  }
-
-  if(err.response) {
-    return err.response.statusText
-  }
-
-  return 'Unknown error'
 }

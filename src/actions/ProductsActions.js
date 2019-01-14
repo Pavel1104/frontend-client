@@ -17,22 +17,10 @@ export const loadProducts = () => {
     .catch(err => {
       dispatch({
         type: LOAD_PRODUCTS_FAIL,
-        payload: new Error(prepeareErrorMsg(err)),
+        payload: new Error(err.message),
       })
     })
   }
-}
-
-const prepeareErrorMsg = err => {
-  if(err.message) {
-    return err.message
-  }
-
-  if(err.response) {
-    return err.response.statusText
-  }
-
-  return 'Unknown error'
 }
 
 const loadSuccess = data => {

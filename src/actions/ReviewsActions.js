@@ -1,4 +1,4 @@
-import axios from 'axios'
+import api from '../utils/apiConfig'
 
 export const LOAD_REVIEWS_REQUEST = 'LOAD_REVIEWS_REQUEST'
 export const LOAD_REVIEWS_SUCCESS = 'LOAD_REVIEWS_SUCCESS'
@@ -8,85 +8,62 @@ export const ADD_REVIEW_REQUEST = 'ADD_REVIEW_REQUEST'
 export const ADD_REVIEWS_SUCCESS = 'ADD_REVIEWS_SUCCESS'
 export const ADD_REVIEW_FAIL = 'ADD_REVIEW_FAIL'
 
-const apiUrl = 'http://smktesting.herokuapp.com/api';
-// const apiUrl = 'http://demo6925046.mockable.io';
-const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
-
-export function loadReviews( token, productId ) {
-  return function(dispatch) {
+export const loadReviews = productId => {
+  return dispatch => {
     dispatch({
       type: LOAD_REVIEWS_REQUEST,
     })
 
-    axios.get(`${proxyUrl}${apiUrl}/reviews/${productId}`, {
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json',
-        "Authorization" : token,
-        'Access-Control-Allow-Origin': '*',
-        // 'Access-Control-Allow-Origin': 'x-requested-with, Content-Type, origin, authorization, accept, client-security-token',
-        'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
-        'Access-Control-Expose-Headers': 'Content-Length, X-JSON',
-      },
+    api.get(`/reviews/${productId}`)
+    .then(response => {
+      dispatch(loadSuccess(response.data))
     })
-    .then((response) => {
-      dispatch(loadSuccess(response.data));
-    })
-    .catch(function (err) {
+    .catch(err => {
       dispatch({
         type: LOAD_REVIEWS_FAIL,
-        error: true,
-        payload: new Error('Ошибка загрузки'),
+        payload: new Error(err.message),
       })
-    });
+    })
   }
 }
 
-const loadSuccess = (data) => {
+const loadSuccess = data => {
   return {
     type: LOAD_REVIEWS_SUCCESS,
     payload: data,
   }
-};
+}
 
-export function handleAddReview( token, productId, rate, text ) {
-  return function(dispatch) {
+export const addReview = (productId, rate, text) => {
+  return dispatch => {
     dispatch({
       type: ADD_REVIEW_REQUEST,
     })
 
-    let postData = {
-      rate: rate,
-      text: text,
-    };
-
-    let headers = {
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-        "Access-Control-Allow-Origin": "*",
-        "Authorization" : token,
+    api.post(`/reviews/${productId}`, {rate, text})
+    .then(response => {
+      if(response.data.success) {
+        console.info(response)
+        dispatch(addSuccess(response.data))
+        loadReviews(productId)
       }
-    };
 
-    axios.post(`${proxyUrl}${apiUrl}/reviews/${productId}`, postData, headers)
-    .then((response) => {
-      dispatch(addSuccess(response.data));
-      loadReviews( token, productId );
+      if(!response.data.success) {
+        throw new Error(response.data.message)
+      }
     })
-    .catch(function (err) {
+    .catch(err => {
       dispatch({
         type: ADD_REVIEW_FAIL,
-        error: true,
-        payload: new Error('Ошибка добавления отзыва'),
+        payload: new Error(err.message),
       })
-    });
+    })
   }
 }
 
-const addSuccess = (data) => {
+const addSuccess = data => {
   return {
     type: ADD_REVIEWS_SUCCESS,
     payload: data,
   }
-};
+}
