@@ -16,7 +16,6 @@ const initialState = {
   error: '',
   isFetching: false,
   token: '',
-  password: '',
   success: false,
 }
 

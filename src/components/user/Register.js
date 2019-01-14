@@ -1,15 +1,14 @@
 import React from 'react'
-import {Error} from './Error'
 import RegisterForm from '../../containers/RegisterForm'
+import {Error} from '../Error'
+import {Load} from '../Load'
 
 export function Register(props) {
   const {error, isFetching} = props
 
   return (
     <div className="user">
-      {isFetching &&
-        <div className="loading"><p>Загружаю...</p></div>
-      }
+      {isFetching && <Load/>}
 
       {!isFetching && error && <Error error={error}/>}
 

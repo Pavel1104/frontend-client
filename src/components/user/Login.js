@@ -1,14 +1,13 @@
 import React from 'react'
-import {Error} from './Error'
 import LoginForm from '../../containers/LoginForm'
+import {Error} from '../Error'
+import {Load} from '../Load'
 
 export function Login(props) {
   const {error, isFetching} = props
   return (
     <div className="user">
-      {isFetching &&
-        <div className="loading"><p>Загружаю...</p></div>
-      }
+      {isFetching && <Load/>}
 
       {!isFetching && error && <Error error={error}/>}
 
