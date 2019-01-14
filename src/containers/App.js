@@ -7,7 +7,7 @@ import Welcome from './Welcome'
 
 import {Login} from '../components/user/Login'
 import {Register} from '../components/user/Register'
-import {restoreUserSession, handleLogin, handleRegister} from '../actions/UserActions'
+import {restoreUserSession} from '../actions/UserActions'
 
 import Products from './Products'
 import Product from './Product'
@@ -16,14 +16,6 @@ class App extends Component {
 
   componentDidMount() {
     this.props.restoreUserSession()
-  }
-
-  handleSubmitRegisterForm = (values) => {
-    this.props.handleRegister(values.username, values.password)
-  }
-
-  handleSubmitLoginForm = (values) => {
-    this.props.handleLogin(values.username, values.password)
   }
 
   render() {
@@ -47,7 +39,6 @@ class App extends Component {
 
           <Route path="/register" component={() =>
             <Register
-              onSubmit={this.handleSubmitRegisterForm}
               isFetching={user.isFetching}
               error={user.error}
             />
@@ -55,15 +46,12 @@ class App extends Component {
 
           <Route path="/login" component={() =>
             <Login
-              onSubmit={this.handleSubmitLoginForm}
               isFetching={user.isFetching}
-              errorMsg={false}
+              error={user.error}
             />
           }/>
 
-          <Route path="/products" component={() =>
-            <Products/>
-          }/>
+          <Route path="/products" component={Products}/>
 
           <Route path="/product/:productId" component={(props) =>
             <Product match={props.match.params}/>
@@ -84,12 +72,10 @@ const mapStateToProps = store => {
 const mapDispatchToProps = dispatch => {
   return {
     restoreUserSession: () => dispatch(restoreUserSession()),
-    handleRegister: (name, password) => dispatch(handleRegister(name, password)),
-    handleLogin: (name, password) => dispatch(handleLogin(name, password)),
   }
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(App)

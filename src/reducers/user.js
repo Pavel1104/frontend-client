@@ -23,7 +23,7 @@ const initialState = {
 export function userReducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN_REQUEST:
-      return {...state, isFetching: true, error: ''}
+      return {...state, isFetching: true, error: '', success: false}
 
     case LOGIN_SUCCESS:
       return {
@@ -41,7 +41,7 @@ export function userReducer(state = initialState, action) {
       return {...state, ...initialState}
 
     case REGISTER_REQUEST:
-      return {...state, isFetching: true, error: ''}
+      return {...state, isFetching: true, error: '', success: false}
 
     case REGISTER_SUCCESS:
       return {

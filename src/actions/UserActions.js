@@ -95,8 +95,17 @@ export function handleLogin(username, password) {
 
     api.post('login/', {username, password})
     .then((response) => {
-      dispatch(loginSuccess(response.data, username))
-      saveUserSession(username, response.data.token)
+      if(response.data.success) {
+        dispatch(loginSuccess(response.data, username))
+        saveUserSession(username, response.data.token)
+      }
+
+      if(!response.data.success) {
+        dispatch({
+          type: LOGIN_FAIL,
+          payload: new Error(response.data.message),
+        })
+      }
     })
     .then( () => {
       history.push("/")
