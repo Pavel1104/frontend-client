@@ -61,7 +61,17 @@ export function handleRegister(username, password) {
 
     api.post('/register/', {username, password})
     .then((response) => {
-      dispatch(registerSuccess(response.data, username))
+      if(response.data.success) {
+        dispatch(registerSuccess(response.data, username))
+        saveUserSession(username, response.data.token)
+      }
+
+      if(!response.data.success) {
+        dispatch({
+          type: REGISTER_FAIL,
+          payload: new Error(response.data.message),
+        })
+      }
     })
     .then( () => {
       history.push("/")
@@ -69,7 +79,6 @@ export function handleRegister(username, password) {
     .catch(function (err) {
       dispatch({
         type: REGISTER_FAIL,
-        error: true,
         payload: new Error(err.response.statusText),
       })
     })
@@ -131,6 +140,7 @@ const loginSuccess = (data, username) => {
 }
 
 export function handleLogout() {
+  saveUserSession()
   return function(dispatch) {
     dispatch({
       type: LOGOUT,
