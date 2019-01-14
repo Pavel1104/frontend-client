@@ -3,7 +3,7 @@ import LoginForm from '../../containers/LoginForm'
 import {Error} from '../Error'
 import {Load} from '../Load'
 
-export function Login(props) {
+export const Login = props => {
   const {error, isFetching} = props
   return (
     <div className="user">

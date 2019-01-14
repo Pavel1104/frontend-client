@@ -1,6 +1,6 @@
 import React from 'react'
 
-export function Error(props) {
+export const Error = props => {
   const {error} = props
 
   return (

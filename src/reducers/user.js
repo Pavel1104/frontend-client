@@ -61,7 +61,7 @@ export function userReducer(state = initialState, action) {
       return {
         ...state,
         isFetching: false,
-        success: action.payload.success,
+        success: true,
         token: action.payload.token,
         name: action.payload.username
       }

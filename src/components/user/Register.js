@@ -3,7 +3,7 @@ import RegisterForm from '../../containers/RegisterForm'
 import {Error} from '../Error'
 import {Load} from '../Load'
 
-export function Register(props) {
+export const Register = props => {
   const {error, isFetching} = props
 
   return (
