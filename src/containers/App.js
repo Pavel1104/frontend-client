@@ -1,9 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {ConnectedRouter} from 'connected-react-router'
-import {Route, Link} from 'react-router-dom'
-
-import Welcome from './Welcome'
+import {Route} from 'react-router-dom'
 
 import {Login} from '../components/user/Login'
 import {Register} from '../components/user/Register'
@@ -11,6 +9,7 @@ import {restoreUserSession} from '../actions/UserActions'
 
 import Products from './Products'
 import Product from './Product'
+import {Header} from '../components/Header';
 
 class App extends Component {
   componentDidMount() {
@@ -23,18 +22,9 @@ class App extends Component {
     return (
       <ConnectedRouter history={history}>
         <Fragment>
-          <nav>
-            <ul>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/login">Login</Link></li>
-              <li><Link to="/register">Register</Link></li>
-              <li><Link to="/products">Products</Link></li>
-            </ul>
-          </nav>
+          <Header/>
 
-          <Route path="/" exact component={() =>
-            <Welcome onSubmit={this.handleSubmitLoginForm}/>
-          }/>
+          <Route path="/" exact component={Products}/>
 
           <Route path="/register" component={() =>
             <Register
