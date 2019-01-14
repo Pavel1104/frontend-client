@@ -67,7 +67,6 @@ LoginForm = reduxForm({
   validate,
 })(LoginForm)
 
-
 // connect data from store
 const mapStateToProps = store => {
   return {

@@ -14,13 +14,15 @@ class Products extends Component {
     const {products, isFetching, error} = this.props.products
 
     return (
-      <div className="products-list">
+      <div className="products-container">
         {isFetching && <Load/>}
 
         {!isFetching && error && <Error error={error}/>}
 
         {!isFetching && !error &&
-          products.map(product => <ProductItem key={product.id} product={product}/>)
+          <div className="reviews-list">
+           {products.map(product => <ProductItem key={product.id} product={product}/>)}
+          </div>
         }
       </div>
     )

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Load = props => {
+export const Load = () => {
   return (
     <div className="loading">
       <p>Загружаю...</p>
