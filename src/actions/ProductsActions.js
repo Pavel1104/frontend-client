@@ -1,60 +1,43 @@
-import axios from 'axios'
+import api from '../utils/apiConfig'
 
-export const LOAD_REQUEST = 'LOAD_REQUEST'
-export const LOAD_SUCCESS = 'LOAD_SUCCESS'
-export const LOAD_FAIL = 'LOAD_FAIL'
+export const LOAD_PRODUCTS_REQUEST = 'LOAD_PRODUCTS_REQUEST'
+export const LOAD_PRODUCTS_SUCCESS = 'LOAD_PRODUCTS_SUCCESS'
+export const LOAD_PRODUCTS_FAIL = 'LOAD_PRODUCTS_FAIL'
 
-
-const apiUrl = 'http://smktesting.herokuapp.com/api';
-// const apiUrl = 'http://demo6925046.mockable.io';
-const proxyUrl = "https://cors-anywhere.herokuapp.com/"
-
-export function loadProducts( token ) {
-  return function(dispatch) {
+export const loadProducts = () => {
+  return dispatch => {
     dispatch({
-      type: LOAD_REQUEST,
+      type: LOAD_PRODUCTS_REQUEST,
     })
 
-    // fetch('http://smktesting.herokuapp.com/api/products/')
-    // .then(function(response) {
-    //   console.log(response.headers.get('Content-Type'));
-    //   return response.text();
-    // })
-    // .then(function(text) {
-    //   console.log('Request successful', text);
-    //   dispatch(loadSuccess(JSON.parse(text)));
-    // })
-
-
-    axios.get(`${proxyUrl}${apiUrl}/products`, {
-    // axios.get('http://smktesting.herokuapp.com/api/products/', {
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json',
-        "Authorization" : token,
-        'Access-Control-Allow-Origin': '*',
-        // 'Access-Control-Allow-Origin': 'x-requested-with, Content-Type, origin, authorization, accept, client-security-token',
-        'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
-        'Access-Control-Expose-Headers': 'Content-Length, X-JSON',
-      },
+    api.get('/products/')
+    .then(response => {
+      dispatch(loadSuccess(response.data))
     })
-    .then((response) => {
-      dispatch(loadSuccess(response.data));
-    })
-    .catch(function (err) {
+    .catch(err => {
       dispatch({
-        type: LOAD_FAIL,
-        error: true,
-        payload: new Error('Ошибка загрузки'),
+        type: LOAD_PRODUCTS_FAIL,
+        payload: new Error(prepeareErrorMsg(err)),
       })
-    });
+    })
   }
 }
 
-const loadSuccess = (data) => {
+const prepeareErrorMsg = err => {
+  if(err.message) {
+    return err.message
+  }
+
+  if(err.response) {
+    return err.response.statusText
+  }
+
+  return 'Unknown error'
+}
+
+const loadSuccess = data => {
   return {
-    type: LOAD_SUCCESS,
+    type: LOAD_PRODUCTS_SUCCESS,
     payload: data,
   }
-};
+}

@@ -13,7 +13,6 @@ import Products from './Products'
 import Product from './Product'
 
 class App extends Component {
-
   componentDidMount() {
     this.props.restoreUserSession()
   }
@@ -53,7 +52,7 @@ class App extends Component {
 
           <Route path="/products" component={Products}/>
 
-          <Route path="/product/:productId" component={(props) =>
+          <Route path="/product/:productId" component={props =>
             <Product match={props.match.params}/>
           }/>
         </Fragment>
