@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {BASE_URL} from '../../index'
 
-export function ProductItem(props) {
+export const ProductItem = props => {
   const {id, title, img, text} = props.product
 
   return (

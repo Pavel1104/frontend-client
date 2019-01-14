@@ -1,7 +1,9 @@
 import React from 'react'
 
-export function Load() {
+export const Load = props => {
   return (
-    <div className="loading"><p>Загружаю...</p></div>
+    <div className="loading">
+      <p>Загружаю...</p>
+    </div>
   )
 }

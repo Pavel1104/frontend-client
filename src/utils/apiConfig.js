@@ -9,25 +9,25 @@ const api = axios.create({
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 // Add a requesr interceptor
-api.interceptors.request.use(function(config) {
-  let userSession = loadUserSession()
-  let token = userSession.token
-  if (token) {
-    config.headers["Authorization"] = `Token${token}`
-  }
-  return config
-}, function(error) {
-  return Promise.reject(error)
-})
+api.interceptors.request.use(
+  config => {
+    let userSession = loadUserSession()
+    let token = userSession.token
+    if(token) {
+      config.headers["Authorization"] = `Token${token}`
+    }
+    return config
+  },
+  error => {return Promise.reject(error)}
+)
 
 // Add a response interceptor
-api.interceptors.response.use(function(response) {
+api.interceptors.response.use(
+  response => {
   return sleep(2000) // simulate server latency
-    .then(() => {
-      return response
-    })
-}, function(error) {
-  return Promise.reject(error)
-})
+    .then(() => {return response})
+  },
+  error => {return Promise.reject(error)}
+)
 
 export default api
