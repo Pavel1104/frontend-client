@@ -14,7 +14,7 @@ const initialState = {
   error: '',
 }
 
-export function reviewsReducer(state = initialState, action) {
+export const reviewsReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_REVIEWS_REQUEST:
       return {...state, reviews: [], isFetching: true, error: ''}

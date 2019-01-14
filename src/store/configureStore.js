@@ -7,7 +7,7 @@ import createRootReducer from '../reducers'
 
 export const history = createBrowserHistory()
 
-function configureStore() {
+const configureStore = () => {
   const store = createStore(
     createRootReducer(history), // root reducer with router state
     compose(
@@ -21,4 +21,4 @@ function configureStore() {
   return store
 }
 
-export const store = configureStore({})
+export const store = configureStore()

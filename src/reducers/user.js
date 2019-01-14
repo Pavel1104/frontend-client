@@ -19,7 +19,7 @@ const initialState = {
   success: false,
 }
 
-export function userReducer(state = initialState, action) {
+export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
       return {...state, isFetching: true, error: '', success: false}

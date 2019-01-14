@@ -11,7 +11,7 @@ const initialState = {
   error: '',
 }
 
-export function productsReducer(state = initialState, action) {
+export const productsReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_PRODUCTS_REQUEST:
       return {...state, isFetching: true, error: ''}
