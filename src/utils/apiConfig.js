@@ -2,7 +2,6 @@ import axios from 'axios'
 import {loadUserSession} from '../store/localStorage'
 
 const api = axios.create({
-  // baseURL: 'http://demo6925046.mockable.io',
   baseURL: 'http://smktesting.herokuapp.com/api',
 })
 
@@ -14,7 +13,7 @@ api.interceptors.request.use(
     let userSession = loadUserSession()
     let token = userSession.token
     if(token) {
-      config.headers["Authorization"] = `Token${token}`
+      config.headers["Authorization"] = `Token ${token}`
     }
     return config
   },
@@ -22,9 +21,10 @@ api.interceptors.request.use(
 )
 
 // Add a response interceptor
+// Добавлена секундная задержка для иммитации задержки сервера
 api.interceptors.response.use(
   response => {
-  return sleep(2000) // simulate server latency
+  return sleep(1000) // simulate server latency
     .then(() => {return response})
   },
   error => {return Promise.reject(error)}

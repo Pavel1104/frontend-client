@@ -1,3 +1,4 @@
+import {reset} from 'redux-form'
 import api from '../utils/apiConfig'
 
 export const LOAD_REVIEWS_REQUEST = 'LOAD_REVIEWS_REQUEST'
@@ -9,7 +10,8 @@ export const ADD_REVIEWS_SUCCESS = 'ADD_REVIEWS_SUCCESS'
 export const ADD_REVIEW_FAIL = 'ADD_REVIEW_FAIL'
 
 export const loadReviews = productId => {
-  return dispatch => {
+    return dispatch => {
+
     dispatch({
       type: LOAD_REVIEWS_REQUEST,
     })
@@ -43,14 +45,18 @@ export const addReview = (productId, rate, text) => {
     api.post(`/reviews/${productId}`, {rate, text})
     .then(response => {
       if(response.data.success) {
-        console.info(response)
         dispatch(addSuccess(response.data))
-        loadReviews(productId)
       }
 
       if(!response.data.success) {
         throw new Error(response.data.message)
       }
+    })
+    .then(() => {
+      dispatch(reset('reviewForm'));
+    })
+    .then(() => {
+      dispatch(loadReviews(productId))
     })
     .catch(err => {
       dispatch({

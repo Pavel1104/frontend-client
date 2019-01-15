@@ -33,7 +33,7 @@ class LoginForm extends Component {
         <hr/>
 
         <div className="container">
-          <div className="relative">
+          <div className="field-container">
             <i className="icon fa fa-user"></i>
             <Field
               name="username"
@@ -43,7 +43,7 @@ class LoginForm extends Component {
             />
           </div>
 
-          <div className="relative">
+          <div className="field-container">
             <i className="icon fa fa-key"></i>
             <Field
               name="password"

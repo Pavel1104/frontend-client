@@ -5,10 +5,9 @@ import UserMenu from '../containers/UserMenu';
 export const Header = () => {
   return (
     <header className="header">
-      <Link to="/">Home</Link>
-      <Link to="/login">Login</Link>
-      <Link to="/register">Register</Link>
-      <Link to="/products">Products</Link>
+      <div className="logo">
+        <Link className="logo-link" to="/"></Link>
+      </div>
 
       <UserMenu/>
     </header>

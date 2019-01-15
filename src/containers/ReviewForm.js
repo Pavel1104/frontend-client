@@ -6,14 +6,14 @@ import {Rate} from '../components/review/Rate'
 import {addReview} from '../actions/ReviewsActions'
 
 class ReviewForm extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       rate: 0,
     }
   }
 
-  handleSubmitReviewForm = (values) => {
+  handleSubmitReviewForm = values => {
     const {productId} = this.props
     this.props.addReview(productId, values.rate, values.text)
   }

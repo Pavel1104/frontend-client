@@ -11,13 +11,16 @@ class UserMenu extends Component {
   }
 
   render() {
-    const {name} = this.props.user
+    const {name, token} = this.props.user
 
     return (
       <div className="user-menu">
-        {name &&
+        {name && token &&
           <Fragment>
-            <p>Hello, {name}</p>
+            <span className="greetings">
+              Hello, <span className="user-name">{name}</span>>
+            </span>
+            |
             <span
               className="logout"
               onClick={this.handleLogout}
@@ -27,7 +30,7 @@ class UserMenu extends Component {
           </Fragment>
         }
 
-        {!name &&
+        {!(name && token) &&
           <Fragment>
             <Link to="/login">Login</Link>
             |

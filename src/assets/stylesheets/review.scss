@@ -19,19 +19,19 @@
       -webkit-transition: all 600ms ease;
       transition:         all 600ms ease;
 
-      &.green { color: forestgreen; }
-      &.yellow { color: yellow; }
-      &.red { color: orangered; }
+      &.green { color: #62b062; }
+      &.yellow { color: #ff9100; }
+      &.red { color: #e68686; }
 
       &.editable[data-rate="5"]:hover,
       &.editable[data-rate="4"]:hover,
       &.editable:hover[data-rate="5"] ~ span,
       &.editable:hover[data-rate="4"] ~ span,
-      { color: forestgreen; }
+      { color: #62b062; }
 
       &.editable[data-rate="3"]:hover,
       &.editable:hover[data-rate="3"] ~ span,
-      { color: yellow; }
+      { color: #ff9100; }
 
       &.editable {
         cursor: pointer;
@@ -71,27 +71,29 @@
     text-align: center;
     position: relative;
     padding: 30px 10px 10px;
-    position: relative;
 
     .rating {
       position: absolute;
       top: 0.1rem;
-      right: 0.3rem;
+      left: 0.2rem;
       width: 110px;
     }
   }
+
   .hidden {display: none};
+
   textarea.text {
     resize: vertical;
     max-height: 300px;
     min-height: 70px;
     height: 70px;
+    border: none;
 
     &:focus {outline: none}
   }
 
   button {
-    background-color: #739c74;
+    background-color: #6bae6a;
     color: white;
     margin: 8px 0;
     border: none;
@@ -99,7 +101,6 @@
     width: 100%;
     font-size: 1.3rem;
     height: 40px;
-    background-color: #6bae6a;
     color: #000000;
     border-radius: 3px 3px 12px 12px;
     -webkit-border-radius: 3px 3px 12px 12px;

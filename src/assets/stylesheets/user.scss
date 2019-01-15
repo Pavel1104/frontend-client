@@ -14,6 +14,10 @@ $icon_size: 40px;
     box-sizing: border-box;
     text-align: center;
 
+    .field-container {
+      position: relative;
+    }
+
     button {
       background-color: #6bae6a;
       color: white;
