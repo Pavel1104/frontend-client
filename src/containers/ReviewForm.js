@@ -16,6 +16,7 @@ class ReviewForm extends Component {
   handleSubmitReviewForm = values => {
     const {productId} = this.props
     this.props.addReview(productId, values.rate, values.text)
+    this.setState({rate: 0})
   }
 
   renderTextArea = ({className, input, placeholder, meta: {touched, error}}) => (
